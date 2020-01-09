@@ -11,23 +11,44 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 
+app.get("/", (req,res)=>{
+    res.sendFile(path.join(__dirname, "Develop/public/index.html"))
+})
+
 
 //customer DATA
-let notesData = [{
-      title: "",
-      text: "",
-      id: 1,
-    }
+let notesIds = [0];
+let notesData = [
+    // {
+    //   title: "note1",
+    //   text: "stuff1",
+    //   id: 1,
+    // },
+    // {
+    //   title: "note2",
+    //   text: "stuff2",
+    //   id: 2,
+    // },
+    // {
+    //   title: "note3",
+    //   text: "stuff3",
+    //   id: 3,
+    // },
+    // {
+    //   title: "note3",
+    //   text: "stuff3",
+    //   id: 4,
+    // },
 ];
 
 
 //Routing
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html"));
+    res.sendFile(path.join(__dirname, "Develop/public/index.html"));
 })
 
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, "notes.html"));
+    res.sendFile(path.join(__dirname, "Develop/public/notes.html"));
 })
 
 // Displays all notes data
@@ -42,8 +63,11 @@ app.post("/api/notes", function (req, res) {
     // This works because of our body parsing middleware
     var newNote = req.body;
     
-        notesData.push(newNote)
-        res.json(true)
+    newNote.id = notesIds[notesIds.length()];
+
+        notesData.push(newNote);
+
+        res.json(true);
 });
 
 
