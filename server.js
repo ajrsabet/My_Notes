@@ -75,9 +75,13 @@ app.post("/api/notes", function (req, res) {
         // console.log(notesData);
         // console.log(newNote);
         let notesData = JSON.parse(data);
+console.log(notesData[notesData.length-1]);
 
-        // newNote.id = notesData[-1].id + 1;
-        newNote.id = 1;
+        if (notesData.length >= 1){
+            newNote.id = notesData[notesData.length-1].id+1}
+            else {newNote.id = 1}
+        // notesData[0].nextId ++
+        // newNote.id = 1;
         notesData.push(newNote);
         
         writeFileAsync('./db/db.json', JSON.stringify(notesData), 'utf8');
