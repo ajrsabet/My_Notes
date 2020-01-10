@@ -20,29 +20,6 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public/index.html"))
 })
 
-// let notesData = util.promisify(fs.readFile);
-//customer DATA
-// let notesIds = 4;
-// let notesData = [
-//     {notesIds:1},
-//     {
-//         title: "title1",
-//         text: "text1",
-//         id: 1
-//     },
-//     {
-//         title: "title2",
-//         text: "text2",
-//         id: 2
-//     },
-//     {
-//         title: "title3",
-//         text: "text3",
-//         id: 3
-//     },
-// ]
-
-
 //Routing
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "public/index.html"));
@@ -57,31 +34,24 @@ app.get("/api/notes", function (req, res) {
     readFileAsync("./db/db.json", "utf8")
     .then((data) => {
         let notesData = JSON.parse(data);
-        // console.log(notesData);
 
         return res.json(notesData);
     })
 });
 
 
-// Create New Note - takes in JSON input
+// Create New Note
 app.post("/api/notes", function (req, res) {
-    // req.body hosts is equal to the JSON post sent from the user
-    // This works because of our body parsing middleware
     var newNote = req.body;
     
     readFileAsync("./db/db.json", "utf8")
     .then((data) => {
-        // console.log(notesData);
-        // console.log(newNote);
         let notesData = JSON.parse(data);
-console.log(notesData[notesData.length-1]);
 
         if (notesData.length >= 1){
             newNote.id = notesData[notesData.length-1].id+1}
             else {newNote.id = 1}
-        // notesData[0].nextId ++
-        // newNote.id = 1;
+
         notesData.push(newNote);
         
         writeFileAsync('./db/db.json', JSON.stringify(notesData), 'utf8');
@@ -89,30 +59,26 @@ console.log(notesData[notesData.length-1]);
      })
 });
 
-app.delete("/api/notes/:id", function (req, res) {
-        
+
+// Delete note
+app.delete("/api/notes/:id", function (req, res) {     
     let deleteNoteId = parseInt(req.params.id);
-    console.log(deleteNoteId);
-    
+
     readFileAsync("./db/db.json", "utf8")
     .then((data) => {
         let notesData = JSON.parse(data)
 
-        console.log(notesData);
-        
-
         const removeIndex = notesData.findIndex(x => x.id === deleteNoteId);
 
         notesData.splice(removeIndex, 1);
-        console.log(notesData);
+
         writeFileAsync('./db/db.json', JSON.stringify(notesData), 'utf8');
 
         res.json(notesData);
      })
 });
  
-
-
+// Listening on port
 app.listen(PORT, function () {
     console.log("listenin on port" + PORT);
 })
