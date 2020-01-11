@@ -1,12 +1,14 @@
 # Unit 11 Express Homework: Note Taker
 
+## Deployed Link: http://my-notes-ajs.herokuapp.com
+
 ![Screenshot](./public/assets/images/My_Note_Screenshot.png)
 
 ![Screenshot](./public/assets/images/My_Note_Screenshot2.png)
 
 ## Description
 
-This is an application that can be used to write, save, and delete notes. This application uses an express backend and save and retrieve note data from a JSON file.
+This is an application that can be used to write, save, and delete notes. This application uses an express backend to save and retrieve note data from a JSON file.
 
 ## User Story
 
